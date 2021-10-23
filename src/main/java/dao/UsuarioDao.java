@@ -17,7 +17,7 @@ public class UsuarioDao {
 				result.getDouble(3), result.getString(4));
 	}
 	
-	public int insert(Usuario usuario) throws SQLException {
+	public static int insert(Usuario usuario) throws SQLException {
 		String query = "INSERT INTO USUARIOS (nombre, presupuesto, tiempoDisponible, tipoDeAtraccionPreferida) VALUES (?, ?, ?, ?)";
 		Connection conn= ConnectionProvider.getConnection();
 		

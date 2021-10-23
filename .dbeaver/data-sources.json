@@ -1,0 +1,30 @@
+{
+	"folders": {},
+	"connections": {
+		"sqlite_jdbc-17cadd38853-642dee3d8bedbf59": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "turismoTierraMedia.db",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"database": "C:\\Users\\Diego\\Argentina_Programa\\SQL\\turismoTierraMedia.db",
+				"url": "jdbc:sqlite:C:\\Users\\Diego\\Argentina_Programa\\SQL\\turismoTierraMedia.db",
+				"type": "dev",
+				"auth-model": "native",
+				"handlers": {}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}
