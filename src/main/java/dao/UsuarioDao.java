@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import jdbc.ConnectionProvider;
-import model.Atraccion;
 import model.Usuario;
 
 public class UsuarioDao {

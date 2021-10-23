@@ -13,7 +13,7 @@ import model.Atraccion;
 
 public class AtraccionDao {
 
-	private static Atraccion toAtraccion(ResultSet result) throws SQLException {
+	static Atraccion toAtraccion(ResultSet result) throws SQLException {
 		return new Atraccion(result.getString(1), result.getInt(2), result.getString(3),
 				result.getDouble(4), result.getInt(5));
 	}
