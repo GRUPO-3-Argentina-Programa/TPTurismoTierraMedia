@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConnectionProvider {
 	
-	private static String url = "jdbc:sqlite:C:\\Users\\Diego\\Argentina_Programa\\SQL\\turismoTierraMedia.db"; 
+	private static String url = "jdbc:sqlite:C:\\Users\\JUAN PABLO\\Desktop\\ARGENTINA PROGRAMA\\BD\\turismoTierraMedia.db"; 
 
 	private static Connection connection;
 	
