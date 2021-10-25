@@ -32,6 +32,8 @@ public class App {
      	 System.out.println(Moria.getCupo());
 		 
 	//	 System.out.println(UsuarioDao.insert(prueba));
+     	 
+     	 
 	}
 	
 	

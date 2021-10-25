@@ -24,10 +24,28 @@ public class PromocionDao {
 		return new Promocion(result.getString(2), atraccionesDePromo);
 	}
 	
-	public static List<Atraccion>CreadorLista() throws SQLException {
+	public static List<Atraccion>findAll() throws SQLException {
+		String query = "SELECT * FROM promociones";
+		Connection conn= ConnectionProvider.getConnection();
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		ResultSet result= statement.executeQuery();
+		
+		List<Atraccion> atraccion = new LinkedList<Atraccion>(); 
+		while(result.next()) {
+			
+			atraccion.add(toPromocion(result));
+		//	System.out.println(result.getString(1) +" "+ result.getInt(2));
+		}
+				
+		return atraccion;
+	}
+	
+	public static List<Atraccion>CreadorLista(Integer id_promo) throws SQLException {
 		String query =  "   SELECT *\r\n"
 				+ "FROM Promociones_con_atracciones pca2  \r\n"
-				+ "JOIN  Atracciones a  ON  pca2.Id_atraccion  = a.atraccion_id \r\n";
+				+ "WHERE Id_promocion = ?";
 		Connection conn= ConnectionProvider.getConnection();
 		PreparedStatement statement = conn.prepareStatement(query);
 		
