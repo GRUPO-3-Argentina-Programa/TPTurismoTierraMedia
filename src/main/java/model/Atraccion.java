@@ -5,8 +5,7 @@ import java.util.Objects;
 
 
 public class Atraccion implements Sugerible {
-   	public static Object statement;
-	private int costeDeVisita;
+ 	private int costeDeVisita;
 	private double promedioDeTiempo;
 	private int cupoDePersonas;
 	private String nombre;

@@ -24,23 +24,23 @@ public class PromocionDao {
 		return new Promocion(result.getString(2), atraccionesDePromo);
 	}
 	
-	public static List<Atraccion>CreadorLista() throws SQLException {
-		String query =  "   SELECT *\r\n"
-				+ "FROM Promociones_con_atracciones pca2  \r\n"
-				+ "JOIN  Atracciones a  ON  pca2.Id_atraccion  = a.atraccion_id \r\n";
+	public static List<Integer>creadorLista(Integer idPromo) throws SQLException {
+		String query =  "   SELECT Id_atraccion FROM Promociones_con_atracciones pca2  \r\n"
+				+ "WHERE id_promocion = ? ";
 		Connection conn= ConnectionProvider.getConnection();
 		PreparedStatement statement = conn.prepareStatement(query);
 		
+		statement.setInt(1, idPromo);
 		ResultSet result= statement.executeQuery();
 		
-		List<Atraccion> atraccionesDePromo = new LinkedList<Atraccion>(); 
+		List<Integer> id_atracciones = new LinkedList<Integer>(); 
 		while (result.next()) {
 			
-			atraccionesDePromo.add(AtraccionDao.toAtraccion(result));
+			id_atracciones.add(result.getInt(1));
 		
 		}
 				
-		return atraccionesDePromo;
+		return id_atracciones;
 	}
 
 	//todo
@@ -50,20 +50,41 @@ public class PromocionDao {
 	
 	PreparedStatement statement = conn.prepareStatement(query);
 	
+	
+
 	Iterator<Atraccion> itr = atraccionesDePromo.iterator();
 	Atraccion atraccion;
 	while (itr.hasNext())
 		itr.next().statement.setInt(1, atraccion.getCupo());
 	    return statement.executeUpdate();
 
+	    
 	}	
 	@Override
 	public String toString() {
 		return "PromocionDao [atraccionesDePromo=" + atraccionesDePromo + "]";
 	}
-
-
+	
+	public static List<Promocion>findAllPromo() throws SQLException {
+		String query = "SELECT * FROM promociones";
+		Connection conn= ConnectionProvider.getConnection();
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		ResultSet result= statement.executeQuery();
+		
+		List<Promocion> promocion = new LinkedList<Promocion>(); 
+		while(result.next()) {
+			creadorLista(result.getInt(1));
+			
+			System.out.println(result.getString(1) +" "+ result.getInt(2));
+			
+			
+	} return promocion;
+	}
 }
+
+
 	
 	
 	
