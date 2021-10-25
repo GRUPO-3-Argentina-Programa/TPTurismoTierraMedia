@@ -65,7 +65,7 @@ public class PromocionDao {
 		return "PromocionDao [atraccionesDePromo=" + atraccionesDePromo + "]";
 	}
 	
-	public static List<Promocion>findAllPromo() throws SQLException {
+	public static List<Promocion>findAllPromo(List<Atraccion> atracciones) throws SQLException {
 		String query = "SELECT * FROM promociones";
 		Connection conn= ConnectionProvider.getConnection();
 		
@@ -82,6 +82,14 @@ public class PromocionDao {
 			
 	} return promocion;
 	}
+	
+	private static List<Atraccion> getAtraccionesDePromo(List<Integer> idAtracciones, List<Atraccion> nombresAtracciones) {
+		
+		
+		
+	}
+	
+	
 }
 
 
