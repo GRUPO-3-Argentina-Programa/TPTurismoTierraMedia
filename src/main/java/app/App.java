@@ -17,11 +17,11 @@ public class App {
 //		System.out.println(UsuarioDao.insert(prueba));
 		
 		
-	//	System.out.println(UsuarioDao.findAll());
+//		System.out.println(UsuarioDao.findAll());
 		
 //		System.out.println(UsuarioDao.borrarUsuario("prueba"));
 		
-//		System.out.println(AtraccionDao.findAll());
+		System.out.println(AtraccionDao.findAll());
 		
 //	    
 //		
@@ -29,15 +29,15 @@ public class App {
 //			
 //		Moria.restarCupo();
 //		
-//        AtraccionDao.updateCupo(Moria);
-//     	 System.out.println(Moria.getCupo());
+//      AtraccionDao.updateCupo(Moria);
+//      System.out.println(Moria.getCupo());
 //		 
-	//	 System.out.println(UsuarioDao.insert(prueba));
+//		System.out.println(UsuarioDao.insert(prueba));
      	 
 
-     System.out.println(PromocionDao.creadorLista(1));
+//     	System.out.println(PromocionDao.findAllPromo());
 
-	}
+}
 	
 	
 

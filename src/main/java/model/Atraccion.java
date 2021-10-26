@@ -10,13 +10,19 @@ public class Atraccion implements Sugerible {
 	private int cupoDePersonas;
 	private String nombre;
 	private String tipo;
+	private int idAtraccion;
 
-	public Atraccion(String nombre, int costo,  String tipo, double tiempo, int cupo) {
+	public Atraccion(String nombre, int costo,  String tipo, double tiempo, int cupo, int id) {
 		this.nombre = nombre;
 		this.costeDeVisita = costo;
 		this.promedioDeTiempo = tiempo;
 		this.cupoDePersonas = cupo;
 	    this.tipo = tipo;
+	    this.idAtraccion = id;
+	}
+	
+	public int getIdAtraccion() {
+		return idAtraccion;
 	}
 
 	public String getTipoAtraccion() {
