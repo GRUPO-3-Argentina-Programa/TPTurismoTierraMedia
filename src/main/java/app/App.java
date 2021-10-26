@@ -21,7 +21,7 @@ public class App {
 		
 //		System.out.println(UsuarioDao.borrarUsuario("prueba"));
 		
-//		System.out.println(AtraccionDao.findAll());
+//	System.out.println(AtraccionDao.findAll());
 		
 //	    
 //		
@@ -35,7 +35,16 @@ public class App {
 	//	 System.out.println(UsuarioDao.insert(prueba));
      	 
      	 
-     System.out.println(PromocionDao.creadorLista(1));
+   System.out.println(PromocionDao.findAllPromo());
+	 
+//  System.out.println(PromocionDao.getIdDeAtracciones(1));
+
+   
+   System.out.println(AtraccionDao.findById(1));
+   
+  
+  
+  
 	}
 	
 	
