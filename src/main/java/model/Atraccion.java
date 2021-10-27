@@ -21,7 +21,7 @@ public class Atraccion implements Sugerible {
 	    this.idAtraccion = id;
 	}
 	
-	public int getIdAtraccion() {
+	public int getId() {
 		return idAtraccion;
 	}
 

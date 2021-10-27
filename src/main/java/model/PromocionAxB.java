@@ -9,8 +9,8 @@ public class PromocionAxB extends Promocion {
 
 	protected Atraccion atraccionRegalo;
 
-	public PromocionAxB(String tipo, List<Atraccion> atraccionesDePromo, Atraccion atraccionRegalo) {
-		super(tipo, atraccionesDePromo);
+	public PromocionAxB(String tipo, List<Atraccion> atraccionesDePromo, Atraccion atraccionRegalo, int id) {
+		super(tipo, atraccionesDePromo, id);
 		this.atraccionRegalo = atraccionRegalo;
 		this.tiempoTotal = getTiempoTotal();
 	}

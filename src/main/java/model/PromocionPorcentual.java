@@ -8,8 +8,8 @@ public class PromocionPorcentual extends Promocion {
 
 	double porcentaje;
 
-	public PromocionPorcentual(String tipo, List<Atraccion> atraccionesDePromo, double porcentaje) {
-		super(tipo, atraccionesDePromo);
+	public PromocionPorcentual(String tipo, List<Atraccion> atraccionesDePromo, double porcentaje, int id) {
+		super(tipo, atraccionesDePromo, id);
 		this.porcentaje = porcentaje;
 		this.sumaCostos = this.getCosto();
 		this.tiempoTotal = super.getTiempoTotal();

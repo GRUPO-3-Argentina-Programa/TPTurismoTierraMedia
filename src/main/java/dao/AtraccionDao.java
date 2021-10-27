@@ -18,7 +18,6 @@ public class AtraccionDao {
 				result.getDouble(4), result.getInt(5), result.getInt(6));
 	}
 
-	
 	public static List<Atraccion>findAll() throws SQLException {
 		String query = "SELECT * FROM atracciones";
 		Connection conn= ConnectionProvider.getConnection();
@@ -36,7 +35,6 @@ public class AtraccionDao {
 				
 		return atraccion;
 	}
-	
 	
 	public Atraccion findByName(String nombre) throws SQLException {
 		String query = "SELECT * FROM atracciones WHERE NOMBRE LIKE ?";
@@ -74,10 +72,9 @@ public class AtraccionDao {
 		return atraccionId;
 	}
 	
-	public static int updateCupo(Atraccion atraccion) throws SQLException {
+	public static int updateCupo(Atraccion atraccion, Connection conn1) throws SQLException {
 		String query = "UPDATE atracciones SET Cupo = ? WHERE NOMBRE LIKE ?";
-		Connection conn = ConnectionProvider.getConnection();
-
+		Connection conn= ConnectionProvider.getConnection();
 		PreparedStatement statement = conn.prepareStatement(query);
 
 		statement.setInt(1, atraccion.getCupo());
@@ -86,6 +83,13 @@ public class AtraccionDao {
 		return statement.executeUpdate();
 
 	}
+//	public static void main(String[] args) throws SQLException {
+//		Connection conn= ConnectionProvider.getConnection();
+//		Atraccion atra = findById(1);
+//		
+//		atra.restarCupo();
+//		AtraccionDao.updateCupo(findById(1), conn);
+//	}
 	
 	
 	

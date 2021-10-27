@@ -42,14 +42,14 @@ public class PromocionDao {
 		atraccionesDePromo.addAll(getAtraccionesDePromo(getIdDeAtracciones(result.getInt(1))));
 
 		if (result.getString(3).equals("porcentual")) {
-			return new PromocionPorcentual(result.getString(2), atraccionesDePromo, result.getDouble(4));
+			return new PromocionPorcentual(result.getString(2), atraccionesDePromo, result.getDouble(4), result.getInt(1));
 		}
 
 		if (result.getString(3).equals("AxB")) {
-			return new PromocionAxB(result.getString(2), atraccionesDePromo, AtraccionDao.findById(result.getInt(6)));
+			return new PromocionAxB(result.getString(2), atraccionesDePromo, AtraccionDao.findById(result.getInt(6)), result.getInt(1));
 		} 
 		else {
-			return new PromocionAbs(result.getString(2), atraccionesDePromo, result.getInt(5));
+			return new PromocionAbs(result.getString(2), atraccionesDePromo, result.getInt(5), result.getInt(1));
 		}
 	}
 
@@ -58,7 +58,7 @@ public class PromocionDao {
 		
 		for (Integer id : id_atracciones) {
 			for (Atraccion a : AtraccionDao.findAll()) {
-				if (id == a.getIdAtraccion()) {
+				if (id == a.getId()) {
 					atracciones.add(a);
 				}
 			}
@@ -83,24 +83,24 @@ public class PromocionDao {
 		return id_atracciones;
 	}
 	
-	public static int updateCupo(Promocion atraccion) throws SQLException {
-		Iterator<Atraccion> itr = Promocion.getAtracciones().iterator();
+	public static void updateCupo(Promocion promo, Connection conn1) throws SQLException {
+		Connection conn= ConnectionProvider.getConnection();
+		Iterator<Atraccion> itr = promo.getAtracciones().iterator();
+		
 		while (itr.hasNext()) {
-			itr.next().restarCupo();
+			Atraccion atr = itr.next();
+						
+			String query = "UPDATE atracciones SET cupo = ? WHERE NOMBRE LIKE ?";
 			
-			String query = "UPDATE atracciones SET Cupo = ? WHERE NOMBRE LIKE ?";
-			Connection conn = ConnectionProvider.getConnection();
-
 			PreparedStatement statement = conn.prepareStatement(query);
 			
-			statement.setInt(1, atraccion.getCupo());
-			statement.setString(2, atraccion.getNombre());
-
-			return statement.executeUpdate();
+			statement.setInt(1, atr.getCupo());
+			statement.setString(1, atr.getNombre());
 			
+			statement.executeUpdate();
+		
 		}
-			
-
+		
 	}
 
 }

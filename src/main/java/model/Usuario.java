@@ -5,6 +5,7 @@ import java.util.*;
 
 import dao.AtraccionDao;
 import dao.ItinerarioDao;
+import dao.UsuarioDao;
 
 public class Usuario {
 
@@ -54,7 +55,7 @@ public class Usuario {
 		this.setPresupuesto(sugerencia.getCosto());
 		this.totalPagar += sugerencia.getCosto();
 		this.totalTiempo += sugerencia.getTiempoTotal();
-		
+		UsuarioDao.guardar(this,sugerencia);
 	}
 
 	@Override

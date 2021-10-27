@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import jdbc.ConnectionProvider;
 import model.Atraccion;
+import model.Promocion;
 import model.Sugerible;
 import model.Usuario;
 
@@ -15,17 +16,24 @@ public class UsuarioDao {
 	
 	public static void guardar(Usuario usuario, Sugerible sugerencia) throws SQLException {
 		Connection conn= ConnectionProvider.getConnection();
-		conn.setAutoCommit(false);
 		
 		try {
-			ItinerarioDao.insert(usuario, sugerencia);
+			conn.setAutoCommit(false);
+			ItinerarioDao.insert(usuario, sugerencia, conn);
+			updateUsuario(usuario, conn);
 			if(!sugerencia.esPromo()) {
-				AtraccionDao.updateCupo((Atraccion) sugerencia);
+				AtraccionDao.updateCupo((Atraccion) sugerencia, conn);
+			} else {
+				PromocionDao.updateCupo((Promocion) sugerencia, conn);
 			}
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("AAA");
+			conn.rollback();
+		} finally {
+			conn.commit();
 		}
+		
 		
 	}
 	
@@ -81,16 +89,16 @@ public class UsuarioDao {
 		}
 	
 	//no chequeado en app
-	public static int updateUsuario(Usuario usuario) throws SQLException {
-	String query = "UPDATE usuarios SET tiempoDisponible = ?, presupuesto = ? ";
-	Connection conn= ConnectionProvider.getConnection();
-	
-	PreparedStatement statement = conn.prepareStatement(query);
-	
-	statement.setDouble(1, usuario.getTiempoDisponible());
-	statement.setDouble(2, usuario.getPresupuesto());
-	
-	return statement.executeUpdate();
+	public static int updateUsuario(Usuario usuario, Connection conn1) throws SQLException {
+		String query = "UPDATE usuarios SET tiempoDisponible = ?, presupuesto = ? ";
+		Connection conn = ConnectionProvider.getConnection();
+
+		PreparedStatement statement = conn.prepareStatement(query);
+
+		statement.setDouble(1, usuario.getTiempoDisponible());
+		statement.setDouble(2, usuario.getPresupuesto());
+
+		return statement.executeUpdate();
 
 	}
 	

@@ -31,6 +31,8 @@ public class App {
 		
 		Iterator<Usuario> u = usuarios.iterator();
 		
+		
+		
 		while (u.hasNext()) {
 
 			Usuario us = u.next();

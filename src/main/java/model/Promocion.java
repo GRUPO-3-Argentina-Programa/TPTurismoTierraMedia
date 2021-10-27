@@ -9,11 +9,12 @@ public class Promocion implements Sugerible {
 	protected double tiempoTotal;
 	protected double sumaCostos = 0;
 	protected String[] nombresDeAtracciones;
+	private int id;
 
-	public Promocion(String tipo, List<Atraccion> atraccionesDePromo) {
+	public Promocion(String tipo, List<Atraccion> atraccionesDePromo, int Id) {
 		this.tipoAtraccion = tipo;
 		this.atraccionesDePromo = new LinkedList<Atraccion>(atraccionesDePromo);
-
+		this.id = Id;
 	}
 
 	public String getTipoAtraccion() {
@@ -96,6 +97,11 @@ public class Promocion implements Sugerible {
 				&& Double.doubleToLongBits(sumaCostos) == Double.doubleToLongBits(other.sumaCostos)
 				&& Double.doubleToLongBits(tiempoTotal) == Double.doubleToLongBits(other.tiempoTotal)
 				&& tipoAtraccion == other.tipoAtraccion;
+	}
+
+	
+	public int getId() {
+		return id;
 	}
 
 }

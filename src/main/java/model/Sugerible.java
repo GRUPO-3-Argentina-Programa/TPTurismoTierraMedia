@@ -23,5 +23,7 @@ public interface Sugerible {
 	public List<Atraccion> getAtracciones();
 
 	public String[] getNombresDeAtracciones();
+	
+	public int getId();
 
 }
