@@ -3,6 +3,7 @@ package model;
 import java.sql.SQLException;
 import java.util.*;
 
+import dao.AtraccionDao;
 import dao.ItinerarioDao;
 
 public class Usuario {
@@ -53,7 +54,7 @@ public class Usuario {
 		this.setPresupuesto(sugerencia.getCosto());
 		this.totalPagar += sugerencia.getCosto();
 		this.totalTiempo += sugerencia.getTiempoTotal();
-		ItinerarioDao.insert(this, sugerencia);
+		
 	}
 
 	@Override

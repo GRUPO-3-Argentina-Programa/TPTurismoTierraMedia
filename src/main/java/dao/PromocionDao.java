@@ -82,5 +82,25 @@ public class PromocionDao {
 
 		return id_atracciones;
 	}
+	
+	public static int updateCupo(Promocion atraccion) throws SQLException {
+		Iterator<Atraccion> itr = Promocion.getAtracciones().iterator();
+		while (itr.hasNext()) {
+			itr.next().restarCupo();
+			
+			String query = "UPDATE atracciones SET Cupo = ? WHERE NOMBRE LIKE ?";
+			Connection conn = ConnectionProvider.getConnection();
+
+			PreparedStatement statement = conn.prepareStatement(query);
+			
+			statement.setInt(1, atraccion.getCupo());
+			statement.setString(2, atraccion.getNombre());
+
+			return statement.executeUpdate();
+			
+		}
+			
+
+	}
 
 }

@@ -59,10 +59,10 @@ public class Promocion implements Sugerible {
 	}
 
 	public String[] getNombresDeAtracciones() {
-		int size = this.atraccionesDePromo.size();
+		int size = getAtracciones().size();
 		nombresDeAtracciones = new String[size];
 		for (int i = 0; i < size; i++) {
-			nombresDeAtracciones[i] = atraccionesDePromo.get(i).getNombre();
+			nombresDeAtracciones[i] = getAtracciones().get(i).getNombre();
 		}
 		return nombresDeAtracciones;
 	}

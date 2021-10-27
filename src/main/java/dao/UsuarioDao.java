@@ -7,9 +7,27 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import jdbc.ConnectionProvider;
+import model.Atraccion;
+import model.Sugerible;
 import model.Usuario;
 
 public class UsuarioDao {
+	
+	public static void guardar(Usuario usuario, Sugerible sugerencia) throws SQLException {
+		Connection conn= ConnectionProvider.getConnection();
+		conn.setAutoCommit(false);
+		
+		try {
+			ItinerarioDao.insert(usuario, sugerencia);
+			if(!sugerencia.esPromo()) {
+				AtraccionDao.updateCupo((Atraccion) sugerencia);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	private static Usuario toUsuario(ResultSet result) throws SQLException {
 		return new Usuario(result.getString(1), result.getInt(2),
@@ -75,6 +93,8 @@ public class UsuarioDao {
 	return statement.executeUpdate();
 
 	}
+	
+	
 	
 }
 

@@ -37,6 +37,7 @@ public class App {
 			us.itinerario = new LinkedList<Sugerible>();
 
 			Ofertador ofertador = new Ofertador();
+			
 			try {
 				ofertador.ofertar(us, sugerencias);
 			} catch (IOException e) {
@@ -45,5 +46,8 @@ public class App {
 			}
 
 		}
+		
+		
+		
 	}
 }

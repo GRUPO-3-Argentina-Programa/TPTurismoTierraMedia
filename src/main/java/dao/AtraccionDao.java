@@ -74,13 +74,14 @@ public class AtraccionDao {
 		return atraccionId;
 	}
 	
-	public int updateCupo(Atraccion atraccion) throws SQLException {
-		String query = "UPDATE atracciones SET Cupo = ? ";
+	public static int updateCupo(Atraccion atraccion) throws SQLException {
+		String query = "UPDATE atracciones SET Cupo = ? WHERE NOMBRE LIKE ?";
 		Connection conn = ConnectionProvider.getConnection();
 
 		PreparedStatement statement = conn.prepareStatement(query);
 
 		statement.setInt(1, atraccion.getCupo());
+		statement.setString(2, atraccion.getNombre());
 
 		return statement.executeUpdate();
 
