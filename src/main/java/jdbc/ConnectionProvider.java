@@ -5,10 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionProvider {
-	
 
 	private static String url = "jdbc:sqlite:C:\\joaco\\ARGENTINA PROGRAMA COSITAS\\TIERRA MEDIA TP GRUPAL\\DB\\turismoTierraMedia.db"; 
-
 
 	private static Connection connection;
 	
@@ -22,6 +20,7 @@ public class ConnectionProvider {
 			}
 			return connection;
 		}
+	
 }
 
 

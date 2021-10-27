@@ -13,11 +13,11 @@ import model.Atraccion;
 
 public class AtraccionDao {
 
-	static Atraccion toAtraccion(ResultSet result) throws SQLException {
+	protected static Atraccion toAtraccion(ResultSet result) throws SQLException {
 		return new Atraccion(result.getString(1), result.getInt(2), result.getString(3),
 				result.getDouble(4), result.getInt(5), result.getInt(6));
 	}
-	
+
 	
 	public static List<Atraccion>findAll() throws SQLException {
 		String query = "SELECT * FROM atracciones";
@@ -38,7 +38,7 @@ public class AtraccionDao {
 	}
 	
 	
-	public static Atraccion findByName(String nombre) throws SQLException {
+	public Atraccion findByName(String nombre) throws SQLException {
 		String query = "SELECT * FROM atracciones WHERE NOMBRE LIKE ?";
 		Connection conn= ConnectionProvider.getConnection();
 		
@@ -74,16 +74,15 @@ public class AtraccionDao {
 		return atraccionId;
 	}
 	
-		
-	public static int updateCupo(Atraccion atraccion) throws SQLException {
-	String query = "UPDATE atracciones SET Cupo = ? ";
-	Connection conn= ConnectionProvider.getConnection();
-	
-	PreparedStatement statement = conn.prepareStatement(query);
-	
-	statement.setInt(1, atraccion.getCupo());
-	
-	return statement.executeUpdate();
+	public int updateCupo(Atraccion atraccion) throws SQLException {
+		String query = "UPDATE atracciones SET Cupo = ? ";
+		Connection conn = ConnectionProvider.getConnection();
+
+		PreparedStatement statement = conn.prepareStatement(query);
+
+		statement.setInt(1, atraccion.getCupo());
+
+		return statement.executeUpdate();
 
 	}
 	

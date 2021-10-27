@@ -39,7 +39,6 @@ public class Promocion implements Sugerible {
 		}
 		return sumaCostos;
 	}
-
 	
 	public boolean esPromo() {
 		return true;
@@ -67,7 +66,6 @@ public class Promocion implements Sugerible {
 		}
 		return nombresDeAtracciones;
 	}
-
 
 	public String getNombre() {
 		return "Esto es una promoción que incluye: " + Arrays.toString(getNombresDeAtracciones());

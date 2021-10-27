@@ -1,6 +1,9 @@
 package model;
 
+import java.sql.SQLException;
 import java.util.*;
+
+import dao.ItinerarioDao;
 
 public class Usuario {
 
@@ -8,7 +11,7 @@ public class Usuario {
 	private double presupuesto;
 	private double tiempoDisponible;
 	private String tipoDeAtraccionPreferida;
-	//protected List<Sugerible> itinerario;
+	public List<Sugerible> itinerario;
 	private final double TIEMPO;
 	private final double PRESUPUESTO;
 	protected double totalPagar;
@@ -19,7 +22,7 @@ public class Usuario {
 		this.presupuesto = presupuesto;
 		this.tiempoDisponible = tiempoDisponible;
 		this.tipoDeAtraccionPreferida = tipoDeAtraccionPreferida;
-	//	this.itinerario = new LinkedList<Sugerible>();
+		this.itinerario = new LinkedList<Sugerible>();
 		this.TIEMPO = tiempoDisponible;
 		this.PRESUPUESTO = presupuesto;
 	}
@@ -40,17 +43,18 @@ public class Usuario {
 		return this.tipoDeAtraccionPreferida;
 	}
 
-////	public List<Sugerible> getItinerario() {
-//		return this.itinerario;
-//	}
+	public List<Sugerible> getItinerario() {
+		return this.itinerario;
+	}
 
-//	public void aceptarSugerencia(Sugerible sugerencia) {
-//		this.itinerario.add(sugerencia);
-//		this.setTiempoDisponible(sugerencia.getTiempoTotal());
-//		this.setPresupuesto(sugerencia.getCosto());
-//		this.totalPagar += sugerencia.getCosto();
-//		this.totalTiempo += sugerencia.getTiempoTotal();
-//	}
+	public void aceptarSugerencia(Sugerible sugerencia) throws SQLException {
+		this.itinerario.add(sugerencia);
+		this.setTiempoDisponible(sugerencia.getTiempoTotal());
+		this.setPresupuesto(sugerencia.getCosto());
+		this.totalPagar += sugerencia.getCosto();
+		this.totalTiempo += sugerencia.getTiempoTotal();
+		ItinerarioDao.insert(this, sugerencia);
+	}
 
 	@Override
 	public int hashCode() {
@@ -71,36 +75,36 @@ public class Usuario {
 				&& tipoDeAtraccionPreferida == other.tipoDeAtraccionPreferida;
 	}
 
-//	public boolean puedeComprar(Sugerible sugerencia) {
-//		return (sugerencia.getCosto() <= this.presupuesto && sugerencia.getTiempoTotal() <= this.tiempoDisponible
-//				&& (!estaIncluido(sugerencia)));
-//	}
+	public boolean puedeComprar(Sugerible sugerencia) {
+		return (sugerencia.getCosto() <= this.presupuesto && sugerencia.getTiempoTotal() <= this.tiempoDisponible
+				&& (!estaIncluido(sugerencia)));
+	}
 
-//	private boolean estaIncluido(Sugerible buscado) {
-//
-//		List<Atraccion> atracciones = new LinkedList<Atraccion>();
-//		for (Sugerible a : itinerario)
-//			if (a.esPromo())
-//				atracciones.addAll(a.getAtracciones());
-//			else
-//				atracciones.add((Atraccion) a);
-//			
-//		boolean encontrado = false;
-//		int i = 0;
-//
-//		while (!encontrado && i < atracciones.size()) {
-//			if(buscado.esPromo()) {
-//				for(Atraccion a : buscado.getAtracciones())
-//					if (atracciones.get(i).getNombre().equals(a.getNombre()))
-//						encontrado = true; }
-//			else if (atracciones.get(i).getNombre().equals(buscado.getNombre()))
-//				encontrado = true;
-//			
-//			i++;
-//		}
-//		return encontrado;
-//
-//	}
+	private boolean estaIncluido(Sugerible buscado) {
+
+	List<Atraccion> atracciones = new LinkedList<Atraccion>();
+		for (Sugerible a : itinerario)
+			if (a.esPromo())
+				atracciones.addAll(a.getAtracciones());
+			else
+				atracciones.add((Atraccion) a);
+			
+		boolean encontrado = false;
+		int i = 0;
+
+		while (!encontrado && i < atracciones.size()) {
+			if(buscado.esPromo()) {
+				for(Atraccion a : buscado.getAtracciones())
+					if (atracciones.get(i).getNombre().equals(a.getNombre()))
+						encontrado = true; }
+			else if (atracciones.get(i).getNombre().equals(buscado.getNombre()))
+				encontrado = true;
+			
+			i++;
+		}
+		return encontrado;
+
+	}
 
 	public void setPresupuesto(double costo) {
 		this.presupuesto -= costo;

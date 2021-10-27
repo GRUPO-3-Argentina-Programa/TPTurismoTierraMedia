@@ -18,7 +18,6 @@ import model.PromocionAbs;
 public class PromocionDao {
 
 	static List<Atraccion> atraccionesDePromo = null;
-	private List<Atraccion> idAtracciones = null;
 
 	public static List<Promocion> findAllPromo() throws SQLException {
 		String query = "SELECT * FROM promociones";
@@ -31,93 +30,57 @@ public class PromocionDao {
 		List<Promocion> promocion = new LinkedList<Promocion>();
 		while (result.next()) {
 
-			promocion.add(toPromocion(result));
-			// System.out.println(result.getString(1) +" "+ result.getInt(2));
+			promocion.add(toTipoPromocion(result));
+
 		}
 
 		return promocion;
 	}
-	
 
-	public static List<Atraccion>findAll() throws SQLException {
-		String query = "SELECT * FROM promociones";
-		Connection conn= ConnectionProvider.getConnection();
-		
-		PreparedStatement statement = conn.prepareStatement(query);
-		
-		ResultSet result= statement.executeQuery();
-		
-		List<Atraccion> atraccion = new LinkedList<Atraccion>(); 
-		while(result.next()) {
-			
-			atraccion.add(toPromocion(result));
-		//	System.out.println(result.getString(1) +" "+ result.getInt(2));
-		}
-				
-		return atraccion;
-	}
+	private static Promocion toTipoPromocion(ResultSet result) throws SQLException {
+		atraccionesDePromo = new LinkedList<Atraccion>();
+		atraccionesDePromo.addAll(getAtraccionesDePromo(getIdDeAtracciones(result.getInt(1))));
 
-
-	private static Promocion toPromocion(ResultSet result) throws SQLException {
 		if (result.getString(3).equals("porcentual")) {
-			return new PromocionPorcentual(result.getString(2), this.atraccionesDePromo, result.getDouble(4));
+			return new PromocionPorcentual(result.getString(2), atraccionesDePromo, result.getDouble(4));
 		}
+
 		if (result.getString(3).equals("AxB")) {
-			return new PromocionAxB(result.getString(2), this.atraccionesDePromo,
-					AtraccionDao.findById(result.getInt(6)));
-		} else {
-			return new PromocionAbs(result.getString(2), this.atraccionesDePromo, result.getInt(5));
+			return new PromocionAxB(result.getString(2), atraccionesDePromo, AtraccionDao.findById(result.getInt(6)));
+		} 
+		else {
+			return new PromocionAbs(result.getString(2), atraccionesDePromo, result.getInt(5));
 		}
 	}
 
-	private static List<Atraccion> getAtraccionesDePromo(List<Integer> idAtracciones) {
-		for (Integer id : idAtracciones) {
-			for (Atraccion a : nombresAtracciones) {
+	private static List<Atraccion> getAtraccionesDePromo(List<Integer> id_atracciones) throws SQLException {
+		List<Atraccion> atracciones = new LinkedList<Atraccion>();
+		
+		for (Integer id : id_atracciones) {
+			for (Atraccion a : AtraccionDao.findAll()) {
 				if (id == a.getIdAtraccion()) {
-					atraccionesDePromo.add(a);
+					atracciones.add(a);
 				}
 			}
 		}
-		return atraccionesDePromo;
+		return atracciones;
 	}
 
-	public static List<Integer> getIdDeAtracciones(Integer idPromo) throws SQLException {
+	public static List<Integer> getIdDeAtracciones(int id_promocion) throws SQLException {
 		String query = "   SELECT Id_atraccion FROM Promociones_con_atracciones  \r\n" + "WHERE id_promocion = ? ";
 		Connection conn = ConnectionProvider.getConnection();
 		
 		PreparedStatement statement = conn.prepareStatement(query);
 
-		statement.setInt(1, idPromo);
+		statement.setInt(1, id_promocion);
 		ResultSet result = statement.executeQuery();
 
 		List<Integer> id_atracciones = new LinkedList<Integer>();
 		while (result.next()) {
-
 			id_atracciones.add(result.getInt(1));
-
 		}
 
 		return id_atracciones;
-	}
-
-	// todo
-	public static int updateCupo(LinkedList<Atraccion> atraccionesDePromo) throws SQLException {
-		String query = "UPDATE atracciones SET Cupo = ? ";
-		Connection conn = ConnectionProvider.getConnection();
-
-		PreparedStatement statement = conn.prepareStatement(query);
-
-		Iterator<Atraccion> itr = atraccionesDePromo.iterator();
-		Atraccion atraccion;
-		while (itr.hasNext())
-			itr.next().statement.setInt(1, atraccion.getCupo());
-		return statement.executeUpdate();
-
-	}
-
-	@Override
-	public String toString() {
-		return "PromocionDao [atraccionesDePromo=" + atraccionesDePromo + "]";
 	}
 
 }
