@@ -95,12 +95,43 @@ public class PromocionDao {
 			PreparedStatement statement = conn.prepareStatement(query);
 			
 			statement.setInt(1, atr.getCupo());
-			statement.setString(1, atr.getNombre());
+			statement.setString(2, atr.getNombre());
 			
 			statement.executeUpdate();
 		
 		}
 		
+	}
+	
+	
+	public static Promocion findByIdPromo(int id) throws SQLException {
+		String query = "SELECT * FROM promociones WHERE promo_id LIKE ?";
+		Connection conn= ConnectionProvider.getConnection();
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setInt(1, id);
+		
+		ResultSet result= statement.executeQuery();
+		
+		Promocion promoId = null;
+		if(result.next()) {
+			promoId = toTipoPromocion(result);
+		}
+		
+		return promoId;
+	}
+	
+	public static void main(String[] args) throws SQLException {
+		Connection conn= ConnectionProvider.getConnection();
+		Promocion promo = findByIdPromo(1);
+		System.out.println(promo);
+		promo.restarCupo();
+		updateCupo(promo, conn);
+		
+		for(Atraccion a: promo.getAtracciones()) {
+			System.out.println(a.getCupo());
+		}
 	}
 
 }

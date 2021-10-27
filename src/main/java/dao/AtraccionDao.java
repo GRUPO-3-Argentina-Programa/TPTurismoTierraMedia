@@ -83,13 +83,14 @@ public class AtraccionDao {
 		return statement.executeUpdate();
 
 	}
-//	public static void main(String[] args) throws SQLException {
-//		Connection conn= ConnectionProvider.getConnection();
-//		Atraccion atra = findById(1);
-//		
-//		atra.restarCupo();
-//		AtraccionDao.updateCupo(findById(1), conn);
-//	}
+	
+	public static void main(String[] args) throws SQLException {
+		Connection conn= ConnectionProvider.getConnection();
+		Atraccion atra = findById(1);
+		
+		atra.restarCupo();
+		AtraccionDao.updateCupo(atra, conn);
+	}
 	
 	
 	

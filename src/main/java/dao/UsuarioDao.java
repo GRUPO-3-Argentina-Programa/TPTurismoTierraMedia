@@ -28,8 +28,7 @@ public class UsuarioDao {
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("AAA");
-			conn.rollback();
+			e.printStackTrace();
 		} finally {
 			conn.commit();
 		}
@@ -90,16 +89,44 @@ public class UsuarioDao {
 	
 	//no chequeado en app
 	public static int updateUsuario(Usuario usuario, Connection conn1) throws SQLException {
-		String query = "UPDATE usuarios SET tiempoDisponible = ?, presupuesto = ? ";
+		String query = "UPDATE usuarios SET tiempoDisponible = ?, presupuesto = ? WHERE nombre LIKE ?";
 		Connection conn = ConnectionProvider.getConnection();
 
 		PreparedStatement statement = conn.prepareStatement(query);
 
 		statement.setDouble(1, usuario.getTiempoDisponible());
 		statement.setDouble(2, usuario.getPresupuesto());
-
+		statement.setString(3, usuario.getNombre());
+		
 		return statement.executeUpdate();
 
+	}
+	
+	public static Usuario findByNombre(String nombre) throws SQLException {
+		String query = "SELECT * FROM usuarios WHERE nombre LIKE ?";
+		Connection conn= ConnectionProvider.getConnection();
+		
+		PreparedStatement statement = conn.prepareStatement(query);
+		
+		statement.setString(1, nombre);
+		
+		ResultSet result= statement.executeQuery();
+		
+		Usuario nombreU = null;
+		if(result.next()) {
+			nombreU = toUsuario(result);
+		}
+		
+		return nombreU;
+	}
+	
+	public static void main(String[] args) throws SQLException {
+		Connection conn= ConnectionProvider.getConnection();
+		Usuario us = UsuarioDao.findByNombre("Eowyn");
+		Atraccion atr = AtraccionDao.findById(1);
+		System.out.println(us);
+		us.aceptarSugerencia(atr);
+		System.out.println(us);
 	}
 	
 	
