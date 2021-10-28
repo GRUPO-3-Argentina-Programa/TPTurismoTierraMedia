@@ -72,9 +72,9 @@ public class AtraccionDao {
 		return atraccionId;
 	}
 	
-	public static int updateCupo(Atraccion atraccion, Connection conn1) throws SQLException {
+	public static int updateCupo(Atraccion atraccion, Connection conn) throws SQLException {
 		String query = "UPDATE atracciones SET Cupo = ? WHERE NOMBRE LIKE ?";
-		Connection conn= ConnectionProvider.getConnection();
+		
 		PreparedStatement statement = conn.prepareStatement(query);
 
 		statement.setInt(1, atraccion.getCupo());
@@ -83,15 +83,5 @@ public class AtraccionDao {
 		return statement.executeUpdate();
 
 	}
-	
-	public static void main(String[] args) throws SQLException {
-		Connection conn= ConnectionProvider.getConnection();
-		Atraccion atra = findById(1);
 		
-		atra.restarCupo();
-		AtraccionDao.updateCupo(atra, conn);
-	}
-	
-	
-	
 }

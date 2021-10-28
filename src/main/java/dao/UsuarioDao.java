@@ -28,7 +28,8 @@ public class UsuarioDao {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("No se pudo realizar la transaccion");
+			conn.rollback();
 		} finally {
 			conn.commit();
 		}
@@ -42,7 +43,7 @@ public class UsuarioDao {
 	}
 	
 	public static int insert(Usuario usuario) throws SQLException {
-		String query = "INSERT INTO USUARIOS (nombre, presupuesto, tiempoDisponible, preferencia) VALUES (?, ?, ?, ?)";
+		String query = "INSERT INTO USUARIOS (nombre, presupuesto_disponible, tiempo_disponible, preferencia) VALUES (?, ?, ?, ?)";
 		Connection conn= ConnectionProvider.getConnection();
 		
 		PreparedStatement statement = conn.prepareStatement(query);
@@ -56,6 +57,7 @@ public class UsuarioDao {
 		return statement.executeUpdate();
 		// else return 0;
 		}
+	
 	// to do
 	public static List<Usuario>findAll() throws SQLException {
 		String query = "SELECT * FROM usuarios";
@@ -75,7 +77,6 @@ public class UsuarioDao {
 		return usuario;
 	}
 	
-	
 	public static int borrarUsuario(String nombre) throws SQLException {
 		String query = "DELETE FROM usuarios WHERE NOMBRE LIKE ?";
 		Connection conn= ConnectionProvider.getConnection();
@@ -88,10 +89,9 @@ public class UsuarioDao {
 		}
 	
 	//no chequeado en app
-	public static int updateUsuario(Usuario usuario, Connection conn1) throws SQLException {
-		String query = "UPDATE usuarios SET tiempoDisponible = ?, presupuesto = ? WHERE nombre LIKE ?";
-		Connection conn = ConnectionProvider.getConnection();
-
+	public static int updateUsuario(Usuario usuario, Connection conn) throws SQLException {
+		String query = "UPDATE usuarios SET tiempo_disponible = ?, presupuesto_disponible = ? WHERE nombre LIKE ?";
+		
 		PreparedStatement statement = conn.prepareStatement(query);
 
 		statement.setDouble(1, usuario.getTiempoDisponible());
@@ -119,17 +119,6 @@ public class UsuarioDao {
 		
 		return nombreU;
 	}
-	
-	public static void main(String[] args) throws SQLException {
-		Connection conn= ConnectionProvider.getConnection();
-		Usuario us = UsuarioDao.findByNombre("Eowyn");
-		Atraccion atr = AtraccionDao.findById(1);
-		System.out.println(us);
-		us.aceptarSugerencia(atr);
-		System.out.println(us);
-	}
-	
-	
-	
+
 }
 

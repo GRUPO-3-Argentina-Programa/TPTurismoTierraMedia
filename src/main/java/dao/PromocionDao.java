@@ -83,8 +83,8 @@ public class PromocionDao {
 		return id_atracciones;
 	}
 	
-	public static void updateCupo(Promocion promo, Connection conn1) throws SQLException {
-		Connection conn= ConnectionProvider.getConnection();
+	public static void updateCupo(Promocion promo, Connection conn) throws SQLException {
+
 		Iterator<Atraccion> itr = promo.getAtracciones().iterator();
 		
 		while (itr.hasNext()) {
@@ -122,16 +122,5 @@ public class PromocionDao {
 		return promoId;
 	}
 	
-	public static void main(String[] args) throws SQLException {
-		Connection conn= ConnectionProvider.getConnection();
-		Promocion promo = findByIdPromo(1);
-		System.out.println(promo);
-		promo.restarCupo();
-		updateCupo(promo, conn);
-		
-		for(Atraccion a: promo.getAtracciones()) {
-			System.out.println(a.getCupo());
-		}
-	}
 
 }
