@@ -57,6 +57,22 @@ public class Usuario {
 		this.totalTiempo += sugerencia.getTiempoTotal();
 		UsuarioDao.guardar(this,sugerencia);
 	}
+	
+	public double getTotalPagar(List<Sugerible> itinerario) {
+		double suma = 0;
+		for (Sugerible s : itinerario) {
+			suma += s.getCosto();
+		}
+		return suma;
+	}
+	
+	public double getTotalTiempo(List<Sugerible> itinerario) {
+		double tiempo = 0;
+		for (Sugerible s : itinerario) {
+			tiempo += s.getTiempoTotal();
+		}
+		return tiempo;
+	}
 
 	@Override
 	public int hashCode() {

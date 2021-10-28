@@ -32,7 +32,8 @@ public class Ofertador {
 	}
 	System.out.println("--------------Fin de sugerencias--------------\n");
 	System.out.println(us.getNombre()+", su itinerario incluye: " + us.itinerario+ 
-			"\n\nEl costo total es: " + us.totalPagar + "\nEl tiempo total necesario es: " + us.totalTiempo);
+			"\n\nEl costo total es: " + us.getTotalPagar(us.itinerario) + 
+			"\nEl tiempo total necesario es: " + us.getTotalTiempo(us.itinerario));
 	System.out.println("\n----------------------------------------------");
 	System.out.println("\nPresione Enter para continuar");
 	

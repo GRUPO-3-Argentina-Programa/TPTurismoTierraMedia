@@ -37,7 +37,7 @@ public class App {
 
 			Usuario us = u.next();
 			us.itinerario = new LinkedList<Sugerible>(ItinerarioDao.getItinerario(us.getNombre()));
-
+			
 			Ofertador ofertador = new Ofertador();
 			
 			try {
