@@ -58,7 +58,6 @@ public class UsuarioDao {
 		// else return 0;
 		}
 	
-	// to do
 	public static List<Usuario>findAll() throws SQLException {
 		String query = "SELECT * FROM usuarios";
 		Connection conn= ConnectionProvider.getConnection();
@@ -88,7 +87,6 @@ public class UsuarioDao {
 
 		}
 	
-	//no chequeado en app
 	public static int updateUsuario(Usuario usuario, Connection conn) throws SQLException {
 		String query = "UPDATE usuarios SET tiempo_disponible = ?, presupuesto_disponible = ? WHERE nombre LIKE ?";
 		

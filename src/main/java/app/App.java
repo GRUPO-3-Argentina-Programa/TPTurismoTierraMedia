@@ -12,7 +12,6 @@ import dao.ItinerarioDao;
 import dao.PromocionDao;
 import dao.UsuarioDao;
 
-
 public class App {
 	
 	public static void main(String[] args) throws SQLException {
@@ -30,9 +29,6 @@ public class App {
 		sugerencias.addAll(promociones);
 		
 		Iterator<Usuario> u = usuarios.iterator();
-		
-		
-		
 		while (u.hasNext()) {
 
 			Usuario us = u.next();
@@ -43,13 +39,8 @@ public class App {
 			try {
 				ofertador.ofertar(us, sugerencias);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
-		
-		
-		
 	}
 }
