@@ -43,7 +43,7 @@ public class UsuarioDao {
 	}
 	
 	public static int insert(Usuario usuario) throws SQLException {
-		String query = "INSERT INTO USUARIOS (nombre, presupuesto_disponible, tiempo_disponible, preferencia) VALUES (?, ?, ?, ?)";
+		String query = "INSERT INTO USUARIOS (nombre, presupuesto, tiempoDisponible, preferencia) VALUES (?, ?, ?, ?)";
 		Connection conn= ConnectionProvider.getConnection();
 		
 		PreparedStatement statement = conn.prepareStatement(query);
@@ -52,10 +52,8 @@ public class UsuarioDao {
 		statement.setDouble(3, usuario.getTiempoDisponible());
 		statement.setString(4, usuario.getTipo());
 		
-	// insertar si no existe
-		// if(findByNombreAndBanda(cancion.getCancion(), cancion.getBanda() == null))
 		return statement.executeUpdate();
-		// else return 0;
+		
 		}
 	
 	public static List<Usuario>findAll() throws SQLException {
@@ -88,7 +86,7 @@ public class UsuarioDao {
 		}
 	
 	public static int updateUsuario(Usuario usuario, Connection conn) throws SQLException {
-		String query = "UPDATE usuarios SET tiempo_disponible = ?, presupuesto_disponible = ? WHERE nombre LIKE ?";
+		String query = "UPDATE usuarios SET tiempoDisponible = ?, presupuesto = ? WHERE nombre LIKE ?";
 		
 		PreparedStatement statement = conn.prepareStatement(query);
 
